@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StartmanSA.Models
 {
@@ -7,7 +9,9 @@ namespace StartmanSA.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        [Display(Name = "Quantidade em Estoque")]
         public long QuantidadeEstoque { get; set; }
+        [Display(Name = "Quantidade Maxima para Estoque")]
         public long QuantidadeEstoqueMax { get; set; }
     }
 }
