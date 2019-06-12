@@ -19,10 +19,22 @@ namespace StartmanSA.Controllers
         }
 
         // GET: Materiaprima
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Materiaprima.ToListAsync());
+            var materiaprima = from m in _context.Materiaprima select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                materiaprima = materiaprima.Where(s => s.Nome.Contains(searchString));
+            }
+
+            return View(await materiaprima.ToListAsync());
         }
+        //[HttpPost]
+        //public string Index(string searchString, bool notUsed)
+        //{
+        //    return "From [HttpPost]Index: filter on " + searchString;
+        //}
 
         // GET: Materiaprima/Details/5
         public async Task<IActionResult> Details(int? id)
