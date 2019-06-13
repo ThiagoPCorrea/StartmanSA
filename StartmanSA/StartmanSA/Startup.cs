@@ -62,7 +62,7 @@ namespace StartmanSA
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=StartmanSA}/{action=Index}/{id?}");
             });
         }
     }

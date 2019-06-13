@@ -1,8 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Matérias-primas";
+    ViewData["Title"] = "Home";
 }
     <title>@ViewData["Title"] - Startman S.A</title>
 
-    <h2>Startman S.A. Matéria-primas</h2>
+    <h2>Startman S.A.</h2>
 
-<p>Hello from our View Template!</p>
+    <h4 style="font-weight:normal; padding-top:3%;">
+        Controle de Estoque
+    </h4>
+
+    <form>
+        <label style="font-size:large;padding-top:2%">
+            Materias-Primas:
+        </label>
+        <button onclick="window.location.href='https://localhost:44365/materiaprima'" asp-controller="MateriaPrima" asp-action="Index">
+            Materias-Primas
+        </button>
+        <br/>
+        <label style="font-size:large;padding-top:2%">
+            Logs:
+        </label>
+        <button onclick="window.location.href='https://localhost:44365/logs'" asp-controller="Logs" asp-action="Index">
+            Logs
+        </button>
+    </form>

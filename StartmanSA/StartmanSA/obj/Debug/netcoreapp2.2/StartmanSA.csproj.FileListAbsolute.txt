@@ -35,3 +35,8 @@ C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netco
 C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Materiaprima\Details.g.cshtml.cs
 C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Materiaprima\Edit.g.cshtml.cs
 C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Materiaprima\Index.g.cshtml.cs
+C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Logs\Create.g.cshtml.cs
+C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Logs\Delete.g.cshtml.cs
+C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Logs\Details.g.cshtml.cs
+C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Logs\Edit.g.cshtml.cs
+C:\Users\thiag\Documents\GitHub\StartmanSA\StartmanSA\StartmanSA\obj\Debug\netcoreapp2.2\Razor\Views\Logs\Index.g.cshtml.cs

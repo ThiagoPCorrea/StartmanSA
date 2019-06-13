@@ -1,0 +1,53 @@
+﻿@model IEnumerable<StartmanSA.Models.Logs>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Encarregado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MateriaPrima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantidadeAlterada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaAlteracao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Encarregado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MateriaPrima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantidadeAlterada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaAlteracao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
