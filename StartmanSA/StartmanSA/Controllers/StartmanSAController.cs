@@ -25,11 +25,8 @@ namespace StartmanSA.Controllers
         // 
         // GET: /StartmanSA/Welcome/ 
 
-        public IActionResult Welcome(string name, int numTimes = 1)
+        public IActionResult Privacy()
         {
-            ViewData["Message"] = "Hello " + name;
-            ViewData["NumTimes"] = numTimes;
-
             return View();
         }
 

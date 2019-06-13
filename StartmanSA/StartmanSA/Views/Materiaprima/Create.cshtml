@@ -1,42 +1,53 @@
 ﻿@model StartmanSA.Models.Materiaprima
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar";
 }
 
-<h1>Create</h1>
+<h1>Criar</h1>
 
-<h4>Materiaprima</h4>
+<h4>Matéria-Prima</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="formCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
+                <label asp-for="Nome" class="control-label"></label>:
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuantidadeEstoque" class="control-label"></label>
+                <label asp-for="QuantidadeEstoque" class="control-label"></label>:
                 <input asp-for="QuantidadeEstoque" class="form-control" />
                 <span asp-validation-for="QuantidadeEstoque" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuantidadeEstoqueMax" class="control-label"></label>
+                <label asp-for="QuantidadeEstoqueMax" class="control-label"></label>:
                 <input asp-for="QuantidadeEstoqueMax" class="form-control" />
                 <span asp-validation-for="QuantidadeEstoqueMax" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" onclick="testerrorNew()" value="Criar" class="btn btn-primary" >Criar</button>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
+
+<script>
+    function testerrorNew() {
+        var nome = document.getElementById("formCreate").elements[0].value;
+        var qtdEstoque = parseInt(document.getElementById("formCreate").elements[1].value);
+        var qtdMaxEstoque = parseInt(document.getElementById("formCreate").elements[2].value);
+        if (nome == "" || qtdEstoque < 0 || qtdMaxEstoque <= 0 || qtdEstoque > qtdMaxEstoque) {
+            alert("Erro: Valores Invalidos");
+        }
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

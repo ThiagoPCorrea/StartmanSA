@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace StartmanSA.Models
 {
+    //classe context do programa
     public partial class StartmanSAContext : DbContext
     {
         public StartmanSAContext()
@@ -22,7 +23,7 @@ namespace StartmanSA.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //connection string do banco de dados
                 optionsBuilder.UseSqlServer("Server=LAPTOP-RG5S275I;Database=StartmanSA;Trusted_Connection=True;");
             }
         }

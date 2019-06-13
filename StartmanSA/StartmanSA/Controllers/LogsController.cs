@@ -19,9 +19,31 @@ namespace StartmanSA.Controllers
         }
 
         // GET: Logs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string LogEncarregado,string searchString)
         {
-            return View(await _context.Logs.ToListAsync());
+            IQueryable<string> EncarregadoQuery = from l in _context.Logs
+                                            orderby l.Encarregado
+                                            select l.Encarregado;
+            var logs = from l in _context.Logs
+                      select l;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                logs = logs.Where(s => s.MateriaPrima.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(LogEncarregado))
+            {
+                logs = logs.Where(x => x.Encarregado == LogEncarregado);
+                
+            }
+
+            var logsEncarregadosVM = new LogsEncarregadosViewModel
+            {
+                Encarregados = new SelectList(await EncarregadoQuery.Distinct().ToListAsync()),
+                Logs = await logs.ToListAsync()
+            };
+            return View(logsEncarregadosVM);      
         }
 
         // GET: Logs/Details/5
@@ -39,79 +61,6 @@ namespace StartmanSA.Controllers
                 return NotFound();
             }
 
-            return View(logs);
-        }
-
-        // GET: Logs/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Logs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Encarregado,MateriaPrima,QuantidadeAlterada,DiaAlteracao")] Logs logs)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(logs);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(logs);
-        }
-
-        // GET: Logs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var logs = await _context.Logs.FindAsync(id);
-            if (logs == null)
-            {
-                return NotFound();
-            }
-            return View(logs);
-        }
-
-        // POST: Logs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Encarregado,MateriaPrima,QuantidadeAlterada,DiaAlteracao")] Logs logs)
-        {
-            if (id != logs.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(logs);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LogsExists(logs.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
             return View(logs);
         }
 
@@ -142,11 +91,6 @@ namespace StartmanSA.Controllers
             _context.Logs.Remove(logs);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool LogsExists(int id)
-        {
-            return _context.Logs.Any(e => e.Id == id);
         }
     }
 }

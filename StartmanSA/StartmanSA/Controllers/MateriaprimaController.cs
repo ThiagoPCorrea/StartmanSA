@@ -67,12 +67,16 @@ namespace StartmanSA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,QuantidadeEstoque,QuantidadeEstoqueMax")] Materiaprima materiaprima)
         {
-            if (ModelState.IsValid)
+            if(materiaprima != null)
             {
-                _context.Add(materiaprima);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid && materiaprima.Validar())
+                {
+                    _context.Add(materiaprima);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            
             return View(materiaprima);
         }
 
@@ -104,12 +108,118 @@ namespace StartmanSA.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && materiaprima.Validar())
             {
                 try
                 {
                     _context.Update(materiaprima);
                     await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MateriaprimaExists(materiaprima.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(materiaprima);
+        }
+
+        // GET: Materiaprima/Reposicao/5
+        public async Task<IActionResult> Reposicao(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var materiaprima = await _context.Materiaprima.FindAsync(id);
+            if (materiaprima == null)
+            {
+                return NotFound();
+            }
+            return View(materiaprima);
+        }
+
+        // POST: Materiaprima/Reposicao/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reposicao(int id, [Bind("Id,Nome,QuantidadeEstoque,QuantidadeEstoqueMax")] Materiaprima materiaprima,int QuantidadeAdd)
+        {
+            if (id != materiaprima.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid && materiaprima.Validar(QuantidadeAdd,"+"))
+            {
+                try
+                {
+                    materiaprima.QuantidadeEstoque += QuantidadeAdd;
+                    _context.Update(materiaprima);
+                    await _context.SaveChangesAsync();
+                    
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MateriaprimaExists(materiaprima.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(materiaprima);
+        }
+
+        // GET: Materiaprima/Retirada/5
+        public async Task<IActionResult> Retirada(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var materiaprima = await _context.Materiaprima.FindAsync(id);
+            if (materiaprima == null)
+            {
+                return NotFound();
+            }
+            return View(materiaprima);
+        }
+
+        // POST: Materiaprima/Retirada/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Retirada(int id, [Bind("Id,Nome,QuantidadeEstoque,QuantidadeEstoqueMax")] Materiaprima materiaprima, int QuantidadeDel)
+        {
+            if (id != materiaprima.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid && materiaprima.Validar(QuantidadeDel,"-"))
+            {
+                try
+                {
+                    materiaprima.QuantidadeEstoque -= QuantidadeDel;
+                    _context.Update(materiaprima);
+                    await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -141,7 +251,7 @@ namespace StartmanSA.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(materiaprima);
         }
 
@@ -151,9 +261,14 @@ namespace StartmanSA.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var materiaprima = await _context.Materiaprima.FindAsync(id);
-            _context.Materiaprima.Remove(materiaprima);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if(materiaprima.QuantidadeEstoque == 0)
+            {
+                _context.Materiaprima.Remove(materiaprima);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            return View(materiaprima);
         }
 
         private bool MateriaprimaExists(int id)

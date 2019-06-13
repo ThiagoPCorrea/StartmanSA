@@ -1,45 +1,51 @@
 ﻿@model StartmanSA.Models.Logs
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Deletar";
 }
 
-<h1>Delete</h1>
+<h1>Deletar</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que deseja deletar isso?</h3>
 <div>
     <h4>Logs</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.Encarregado)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Encarregado)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.MateriaPrima)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MateriaPrima)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-10">
+            @Html.DisplayNameFor(model => model.TipodeOperacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipodeOperacao)
+        </dd>
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.QuantidadeAlterada)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.QuantidadeAlterada)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.DiaAlteracao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DiaAlteracao)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a asp-action="Index">Voltar</a>
     </form>
 </div>

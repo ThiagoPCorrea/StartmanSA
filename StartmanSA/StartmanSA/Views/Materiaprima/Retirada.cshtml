@@ -1,0 +1,67 @@
+﻿@model StartmanSA.Models.Materiaprima
+
+@{
+    ViewData["Title"] = "Retirada";
+}
+
+<h1>Retirada</h1>
+
+<h4>Matéria-Prima</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-10">
+        @Html.DisplayNameFor(model => model.Nome):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Nome)
+    </dd>
+    <dt class="col-sm-10">
+        @Html.DisplayNameFor(model => model.QuantidadeEstoque):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.QuantidadeEstoque)
+    </dd>
+    <dt class="col-sm-10">
+        @Html.DisplayNameFor(model => model.QuantidadeEstoqueMax):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.QuantidadeEstoqueMax)
+    </dd>
+</dl>
+<div class="row">
+
+    <div class="col-md-4">
+        <form asp-action="Retirada" id="formRet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Nome" />
+            <input id="quantAt" type="hidden" asp-for="QuantidadeEstoque" />
+            <input type="hidden" asp-for="QuantidadeEstoqueMax" />
+            <div class="form-group">
+                <label>Quantidade de matéria-prima que será retirada:</label>
+                <input id="quantDel" type="number" name="QuantidadeDel" />
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="testerrorRet()" value="Save" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+<script>
+    function testerrorRet() {
+        var quantDel = parseInt(document.getElementById("formRet").elements[4].value);
+        var quantAt = parseInt(document.getElementById("formRet").elements[2].value);
+        if (quantAt - quantDel < 0) {
+            alert("Erro: Valor Invalido");
+        }
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

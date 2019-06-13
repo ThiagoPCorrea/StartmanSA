@@ -36,6 +36,7 @@ namespace StartmanSA
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            //conection string retirada de appsettings.json
             services.AddDbContext<StartmanSAContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("StartmanSAContext")));
         }

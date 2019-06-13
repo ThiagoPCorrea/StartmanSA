@@ -1,34 +1,46 @@
-﻿@model IEnumerable<StartmanSA.Models.Logs>
+﻿@model StartmanSA.Models.LogsEncarregadosViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Logs";
 }
 
-<h1>Index</h1>
+<h1 style="padding-bottom:2%">Logs</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form asp-controller="Logs" asp-action="Index" method="get">
+    <p>
+
+        Encarregados: <select asp-for="LogEncarregado" asp-items="Model.Encarregados">
+            <option value="">Todos</option>
+        </select>
+
+        Matéria-Prima: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filtrar" class="btn-primary" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Encarregado)
+                @Html.DisplayNameFor(model => model.Logs[0].Encarregado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MateriaPrima)
+                @Html.DisplayNameFor(model => model.Logs[0].MateriaPrima)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantidadeAlterada)
+                @Html.DisplayNameFor(model => model.Logs[0].TipodeOperacao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiaAlteracao)
+                @Html.DisplayNameFor(model => model.Logs[0].QuantidadeAlterada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logs[0].DiaAlteracao)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Logs) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Encarregado)
@@ -37,15 +49,17 @@
                 @Html.DisplayFor(modelItem => item.MateriaPrima)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.TipodeOperacao)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.QuantidadeAlterada)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DiaAlteracao)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }

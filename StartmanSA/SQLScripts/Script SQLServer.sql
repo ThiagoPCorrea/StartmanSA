@@ -10,9 +10,11 @@ Create table materiaprima(
 Create table logs(
 	ID int not null identity,
 	Encarregado varchar(100) not null,
+	TipodeOperacao varchar(50) not null,
 	MateriaPrima varchar(300) not null,
 	QuantidadeAlterada bigint not null,
 	DiaAlteracao datetime not null);
+
 
 -- Constraints
 alter table materiaprima add constraint PK_MATERIAPRIMA primary key(ID);
@@ -35,16 +37,17 @@ as
 begin
 	if (select QuantidadeEstoque from inserted) > (select QuantidadeEstoque from deleted)
 		begin
-			insert into logs(Encarregado,MateriaPrima,QuantidadeAlterada,DiaAlteracao)
-			values ('Encarregado1',(select Nome from inserted),
+			insert into logs(Encarregado,MateriaPrima,TipodeOperacao,QuantidadeAlterada,DiaAlteracao)
+			values ('Encarregado1',(select Nome from inserted),'Reposição',
 					((select QuantidadeEstoque from inserted) -  (select QuantidadeEstoque from deleted)),
 					GETDATE());
 		end
 	else
 		begin
-			insert into logs(Encarregado,MateriaPrima,QuantidadeAlterada,DiaAlteracao)
-			values ('Encarregado2',(select Nome from inserted),
+			insert into logs(Encarregado,MateriaPrima,TipodeOperacao,QuantidadeAlterada,DiaAlteracao)
+			values ('Encarregado2',(select Nome from inserted),'Retirada',
 					((select QuantidadeEstoque from deleted) -  (select QuantidadeEstoque from inserted)),
 					GETDATE());
 		end	
 end
+

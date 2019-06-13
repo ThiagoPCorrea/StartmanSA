@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace StartmanSA.Models
 {
+    // Classe para popular as materias-primas
     public class MateriaPrimaData
     {
         public static void Initialize(IServiceProvider serviceProvider)
@@ -16,10 +17,9 @@ namespace StartmanSA.Models
                     DbContextOptions<StartmanSAContext>>()))
 
             {
-                // Look for any movies.
                 if (context.Materiaprima.Any())
                 {
-                    return;   // DB has been seeded
+                    return;
                 }
 
                 context.Materiaprima.AddRange(
